@@ -29,16 +29,7 @@ RUN apk add --no-cache \
 
 RUN apk add nano
 RUN apk add composer
-
-ENV REDIS_VERSION 5.3.7
-
-RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/$REDIS_VERSION.tar.gz \
-    && tar xfz /tmp/redis.tar.gz \
-    && rm -r /tmp/redis.tar.gz \
-    && mkdir -p /usr/src/php/ext \
-    && mv phpredis-* /usr/src/php/ext/redis
-
-RUN docker-php-ext-install redis
+RUN apk add  php8-pecl-redis
 
 RUN apk add util-linux openrc
 VOLUME /sys/fs/cgroup                 # As suggested above
