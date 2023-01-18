@@ -34,7 +34,11 @@ RUN apk add composer
 # RUN apk add php7-fileinfo
 # RUN apk add php-config
 # RUN apk add --no-cache tini openrc busybox-initscripts
-RUN apk add --no-cache pcre-dev $PHPIZE_DEPS && pecl -o -f install redis && docker-php-ext-enable redis.so
+RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \
+  && pecl install redis \
+  && docker-php-ext-enable redis \
+  && apk del pcre-dev ${PHPIZE_DEPS} \
+  && rm -rf /tmp/pear
 
 RUN apk add util-linux openrc
 VOLUME /sys/fs/cgroup                 # As suggested above
