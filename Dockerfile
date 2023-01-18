@@ -34,14 +34,7 @@ RUN apk update
 
 # RUN pear update-channels
 #RUN pecl channel-update pecl.php.net
-RUN set -xe; \
-    apk add --update --no-cache --virtual .build-deps ${PHPIZE_DEPS}; \
-    echo '@community http://nl.alpinelinux.org/alpine/v3.7/community/' >> /etc/apk/repositories; \
-    apk --update add --no-cache ${PHP_DEPS}; \
-    # or pecl installation
-    pecl install xdebug; \
-    # clean up (remove build packages)
-    apk del .build-deps
+RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS
     
 RUN curl 'http://pecl.php.net/get/redis-5.3.7.tgz' -o redis-5.3.7.tgz \
     && pecl install redis-5.3.7.tgz \
