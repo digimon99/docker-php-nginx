@@ -30,14 +30,14 @@ RUN apk add --no-cache \
 RUN apk add nano
 RUN apk add composer
 RUN apk update
+RUN apk upgrade
 #RUN apk add --no-cache ${PHPIZE_DEPS}
 
 # RUN pear update-channels
 #RUN pecl channel-update pecl.php.net
 
-RUN curl -sSL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o - | sh -s \
-      mongodb \
-      redis
+RUN apk add --no-cache pcre-dev $PHPIZE_DEPS && pecl -o -f install redis && docker-php-ext-enable redis.so
+
 
 # RUN apk add rsyslog
 # RUN apk add util-linux openrc
