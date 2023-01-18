@@ -30,6 +30,7 @@ RUN apk add --no-cache \
 RUN apk add nano
 RUN apk add composer
 RUN apk update
+RUN RUN apk add --no-cache ${PHPIZE_DEPS}
 RUN apk add --upgrade php8-pecl-redis
 
 RUN apk add util-linux openrc
