@@ -31,23 +31,6 @@ RUN apk add nano
 RUN apk add composer
 RUN apk update
 RUN apk upgrade
-#RUN apk add --no-cache ${PHPIZE_DEPS}
-
-# RUN pear update-channels
-#RUN pecl channel-update pecl.php.net
-
-#RUN apk add --no-cache pcre-dev $PHPIZE_DEPS && pecl -o -f install redis && docker-php-ext-enable redis.so
-RUN apk add --no-cache --virtual .phpize-deps-configure $PHPIZE_DEPS
-RUN pecl install mongodb
-RUN docker-php-ext-enable mongodb
-RUN apk del --no-network .phpize-deps-configure
-
-# RUN apk add rsyslog
-# RUN apk add util-linux openrc
-# VOLUME /sys/fs/cgroup                 # As suggested above
-# RUN rc-update add rsyslog default\
-#  && mkdir /run/openrc\
-#  && touch /run/openrc/softlevel      # Workaround for the Error Message
 
 # Configure nginx - http
 COPY config/nginx.conf /etc/nginx/nginx.conf
