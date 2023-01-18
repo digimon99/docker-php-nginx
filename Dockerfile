@@ -28,6 +28,12 @@ RUN apk add --no-cache \
 
 RUN apk add nano
 RUN apk add composer
+RUN apk add php8-pecl-redis
+RUN apk add php8-mongodb
+RUN apk add php7-mongodb
+RUN apk add php7-fileinfo
+RUN apk add php-config
+RUN apk add --no-cache tini openrc busybox-initscripts
 
 # Configure nginx - http
 COPY config/nginx.conf /etc/nginx/nginx.conf
