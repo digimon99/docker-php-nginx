@@ -32,9 +32,10 @@ RUN apk add composer
 RUN apk update
 RUN apk add --no-cache ${PHPIZE_DEPS}
 
+RUN pear update-channels
+RUN pecl channel-update pecl.php.net
+
 RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
-    # Install Php Redis Extension
-    printf "\n" | pecl install -o -f redis \
     printf "\n" | curl 'http://pecl.php.net/get/redis-5.3.7.tgz' -o redis-5.3.7.tgz \
     && pecl install redis-5.3.7.tgz \
     &&  rm -rf redis-5.3.7.tgz \
