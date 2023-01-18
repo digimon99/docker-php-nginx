@@ -30,18 +30,24 @@ RUN apk add --no-cache \
 RUN apk add nano
 RUN apk add composer
 RUN apk update
-RUN apk add --no-cache ${PHPIZE_DEPS}
+#RUN apk add --no-cache ${PHPIZE_DEPS}
 
 # RUN pear update-channels
-RUN pecl channel-update pecl.php.net
-
-RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
-    printf "\n" | curl 'http://pecl.php.net/get/redis-5.3.7.tgz' -o redis-5.3.7.tgz \
+#RUN pecl channel-update pecl.php.net
+RUN set -xe; \
+    apk add --update --no-cache --virtual .build-deps ${PHPIZE_DEPS}; \
+    echo '@community http://nl.alpinelinux.org/alpine/v3.7/community/' >> /etc/apk/repositories; \
+    apk --update add --no-cache ${PHP_DEPS}; \
+    # or pecl installation
+    pecl install xdebug; \
+    # clean up (remove build packages)
+    apk del .build-deps
+    
+RUN curl 'http://pecl.php.net/get/redis-5.3.7.tgz' -o redis-5.3.7.tgz \
     && pecl install redis-5.3.7.tgz \
     &&  rm -rf redis-5.3.7.tgz \
     &&  rm -rf /tmp/pear \
     &&  docker-php-ext-enable redis \
- ;fi
 
 # RUN apk add rsyslog
 # RUN apk add util-linux openrc
