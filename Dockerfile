@@ -36,8 +36,11 @@ RUN apk upgrade
 # RUN pear update-channels
 #RUN pecl channel-update pecl.php.net
 
-RUN apk add --no-cache pcre-dev $PHPIZE_DEPS && pecl -o -f install redis && docker-php-ext-enable redis.so
-
+#RUN apk add --no-cache pcre-dev $PHPIZE_DEPS && pecl -o -f install redis && docker-php-ext-enable redis.so
+RUN apk add --no-cache --virtual .phpize-deps-configure $PHPIZE_DEPS
+RUN pecl install mongodb
+RUN docker-php-ext-enable mongodb
+RUN apk del --no-network .phpize-deps-configure
 
 # RUN apk add rsyslog
 # RUN apk add util-linux openrc
