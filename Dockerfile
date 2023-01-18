@@ -32,22 +32,22 @@ RUN apk add composer
 RUN apk update
 RUN apk add --no-cache ${PHPIZE_DEPS}
 
-#RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
+RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
     # Install Php Redis Extension
-    # printf "\n" | pecl install -o -f redis \
-#    printf "\n" | curl 'http://pecl.php.net/get/redis-5.3.7.tgz' -o redis-5.3.7.tgz \
-#    && pecl install redis-5.3.7.tgz \
-#    &&  rm -rf redis-5.3.7.tgz \
-#    &&  rm -rf /tmp/pear \
-#    &&  docker-php-ext-enable redis \
-# ;fi
+    printf "\n" | pecl install -o -f redis \
+    printf "\n" | curl 'http://pecl.php.net/get/redis-5.3.7.tgz' -o redis-5.3.7.tgz \
+    && pecl install redis-5.3.7.tgz \
+    &&  rm -rf redis-5.3.7.tgz \
+    &&  rm -rf /tmp/pear \
+    &&  docker-php-ext-enable redis \
+ ;fi
 
-RUN apk add rsyslog
-RUN apk add util-linux openrc
-VOLUME /sys/fs/cgroup                 # As suggested above
-RUN rc-update add rsyslog default\
-  && mkdir /run/openrc\
-  && touch /run/openrc/softlevel      # Workaround for the Error Message
+# RUN apk add rsyslog
+# RUN apk add util-linux openrc
+# VOLUME /sys/fs/cgroup                 # As suggested above
+# RUN rc-update add rsyslog default\
+#  && mkdir /run/openrc\
+#  && touch /run/openrc/softlevel      # Workaround for the Error Message
 
 # Configure nginx - http
 COPY config/nginx.conf /etc/nginx/nginx.conf
