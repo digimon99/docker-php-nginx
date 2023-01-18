@@ -42,6 +42,7 @@ RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
     &&  docker-php-ext-enable redis \
 ;fi
 
+RUN apk add rsyslog
 RUN apk add util-linux openrc
 VOLUME /sys/fs/cgroup                 # As suggested above
 RUN rc-update add rsyslog default\
