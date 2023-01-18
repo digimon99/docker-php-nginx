@@ -26,6 +26,9 @@ RUN apk add --no-cache \
   php81-xmlreader \
   supervisor
 
+RUN apk add nano
+RUN apk add composer
+
 # Configure nginx - http
 COPY config/nginx.conf /etc/nginx/nginx.conf
 # Configure nginx - default server
