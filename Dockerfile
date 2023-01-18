@@ -24,14 +24,16 @@ RUN apk add --no-cache \
   php81-session \
   php81-xml \
   php81-xmlreader \
+  php81-fileinfo \
+  php81-config \
   supervisor
 
 RUN apk add nano
 RUN apk add composer
 # RUN apk add php8-mongodb
 # RUN apk add php7-mongodb
-RUN apk add php7-fileinfo
-RUN apk add php-config
+# RUN apk add php7-fileinfo
+# RUN apk add php-config
 RUN apk add --no-cache tini openrc busybox-initscripts
 RUN apk add --no-cache pcre-dev $PHPIZE_DEPS && pecl -o -f install redis && docker-php-ext-enable redis.so
 
