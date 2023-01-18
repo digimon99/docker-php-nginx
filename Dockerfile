@@ -33,8 +33,14 @@ RUN apk add composer
 # RUN apk add php7-mongodb
 # RUN apk add php7-fileinfo
 # RUN apk add php-config
-RUN apk add --no-cache tini openrc busybox-initscripts
+# RUN apk add --no-cache tini openrc busybox-initscripts
 RUN apk add --no-cache pcre-dev $PHPIZE_DEPS && pecl -o -f install redis && docker-php-ext-enable redis.so
+
+RUN apk add util-linux openrc
+VOLUME /sys/fs/cgroup                 # As suggested above
+RUN rc-update add rsyslog default\
+  && mkdir /run/openrc\
+  && touch /run/openrc/softlevel      # Workaround for the Error Message
 
 # Configure nginx - http
 COPY config/nginx.conf /etc/nginx/nginx.conf
