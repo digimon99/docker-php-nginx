@@ -32,7 +32,7 @@ RUN apk add composer
 RUN apk update
 RUN apk add --no-cache ${PHPIZE_DEPS}
 
-RUN pear update-channels
+# RUN pear update-channels
 RUN pecl channel-update pecl.php.net
 
 RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
