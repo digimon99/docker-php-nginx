@@ -25,7 +25,6 @@ RUN apk add --no-cache \
   php81-xml \
   php81-xmlreader \
   php81-fileinfo \
-  php81-config \
   supervisor
 
 RUN apk add nano
