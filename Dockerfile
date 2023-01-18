@@ -29,7 +29,8 @@ RUN apk add --no-cache \
 
 RUN apk add nano
 RUN apk add composer
-RUN apk add  php8-pecl-redis
+RUN apk update
+RUN apk add --upgrade php8-pecl-redis
 
 RUN apk add util-linux openrc
 VOLUME /sys/fs/cgroup                 # As suggested above
